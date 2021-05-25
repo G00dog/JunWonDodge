@@ -1617,6 +1617,8 @@ MonoBehaviour:
   level: {fileID: 348026134}
   bullerSpawnerPrefab: {fileID: 340561588891676384, guid: 48aa7bb3b5fcb414386cdacc9f7012d6,
     type: 3}
+  itemPrefab: {fileID: 6168262028130420451, guid: 5a9f63b7fb975ca4dbb7fc682f40f313,
+    type: 3}
 --- !u!4 &2090817174
 Transform:
   m_ObjectHideFlags: 0

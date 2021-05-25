@@ -47,4 +47,14 @@ public class PlayerController : MonoBehaviour
             Die();
         }
     }
+
+    public void GetHeal(int heal)
+    {
+        hp += heal;
+        if(hp > 100)
+        {
+            hp = 100;
+        }
+        hpbar.SetHP(hp);
+    }
 }
