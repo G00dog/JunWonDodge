@@ -12,6 +12,18 @@ public class BulletSpawner : MonoBehaviour
     private float spawnRate;
     private float timeAfterSpawn;
 
+    public int hp = 100;
+
+    public void GetDamage(int damage)
+    {
+        hp -= damage;
+
+        if(hp <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
     void Start()
     {
         timeAfterSpawn = 0f;

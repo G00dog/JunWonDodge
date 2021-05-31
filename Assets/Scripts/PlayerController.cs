@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour
 
     public int hp = 100;
     public HPBar hpbar;
+
+    private float spawnRate = 0.2f;
+    private float timerAfterSpawn;
+    public GameObject playerbulletPrefab;
     
     void Start()
     {
@@ -27,6 +31,14 @@ public class PlayerController : MonoBehaviour
         Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);
 
         playerRigidbody.velocity = newVelocity;
+
+        timerAfterSpawn += Time.deltaTime;
+
+        if (Input.GetButton("Fire1") && timerAfterSpawn >= spawnRate)
+        {
+            timerAfterSpawn = 0;
+            GameObject bullet = Instantiate(playerbulletPrefab, transform.position, transform.rotation);
+        }
     }
 
     void Die()
