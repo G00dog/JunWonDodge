@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRigidbody;
     public float speed = 8f;
 
+    private Transform tr;
+
     public int hp = 100;
     public HPBar hpbar;
 
@@ -17,6 +19,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
+        timerAfterSpawn = 0f;
+        tr = GetComponent<Transform>();
     }
 
  
@@ -31,6 +35,17 @@ public class PlayerController : MonoBehaviour
         Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);
 
         playerRigidbody.velocity = newVelocity;
+
+        RaycastHit hit = new RaycastHit();
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray.origin, ray.direction, out hit))
+        {
+            Vector3 projectedPos = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+            Vector3 currentPos = transform.position;
+            Vector3 rotation = projectedPos - currentPos;
+            tr.forward = rotation;
+        }
 
         timerAfterSpawn += Time.deltaTime;
 
