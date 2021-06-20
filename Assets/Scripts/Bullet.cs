@@ -13,12 +13,16 @@ public class Bullet : MonoBehaviour
         bulletRigidbody = GetComponent<Rigidbody>();
         bulletRigidbody.velocity = transform.forward * speed;
 
-        Destroy(gameObject, 3f);
+        //Destroy(gameObject, 3f);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag=="Player")
+        if (other.tag == "Unbreak_obj" || other.tag == "Break_obj")
+        {
+            Destroy(gameObject);
+        }
+        else if (other.tag=="Player")
         {
             PlayerController playerController = other.GetComponent<PlayerController>();
 

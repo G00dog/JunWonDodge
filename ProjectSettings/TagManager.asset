@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Bullet
   - BulletSpawner
+  - Unbreak_obj
+  - Break_obj
   layers:
   - Default
   - TransparentFX

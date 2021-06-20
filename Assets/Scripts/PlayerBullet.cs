@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
-    public float speed = 8f;
+    public float speed = 12f;
     private Rigidbody bulletRigidbody;
     public int damage = 30;
 
@@ -13,20 +13,13 @@ public class PlayerBullet : MonoBehaviour
         bulletRigidbody = GetComponent<Rigidbody>();
         bulletRigidbody.velocity = transform.forward * speed;
 
-        Destroy(gameObject, 3f);
+        /*Destroy(gameObject, 3f);*/
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Bullet")
-        {
-            Bullet bullet = other.GetComponent<Bullet>();
-
-            if (bullet != null)
-            {
-                Destroy(bullet.gameObject);
-            }
-
+        if (other.tag == "Unbreak_obj" || other.tag == "Break_obj")
+        {           
             Destroy(gameObject);
         }
         else if (other.tag == "BulletSpawner") 

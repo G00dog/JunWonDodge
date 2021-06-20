@@ -12,18 +12,19 @@ public class PlayerController : MonoBehaviour
     public int hp = 100;
     public HPBar hpbar;
 
-    private float spawnRate = 0.2f;
-    private float timerAfterSpawn;
+    //private float spawnRate = 0.5f;
+    //private float timerAfterSpawn;
+    private float UnbeatTime = 0f;
     public GameObject playerbulletPrefab;
-    
+
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
-        timerAfterSpawn = 0f;
+        //timerAfterSpawn = 0f;
         tr = GetComponent<Transform>();
     }
 
- 
+
     void Update()
     {
         float xInput = Input.GetAxis("Horizontal");
@@ -31,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
         float xSpeed = xInput * speed;
         float zSpeed = zInput * speed;
+
+        UnbeatTime += Time.deltaTime;
 
         Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);
 
@@ -47,29 +50,35 @@ public class PlayerController : MonoBehaviour
             tr.forward = rotation;
         }
 
-        timerAfterSpawn += Time.deltaTime;
+        /*timerAfterSpawn += Time.deltaTime;
 
         if (Input.GetButton("Fire1") && timerAfterSpawn >= spawnRate)
         {
             timerAfterSpawn = 0;
             GameObject bullet = Instantiate(playerbulletPrefab, transform.position, transform.rotation);
-        }
+        }*/
     }
 
     void Die()
     {
         gameObject.SetActive(false);
 
-        GameManager gameManager = FindObjectOfType<GameManager>();
+        GameManager2 gameManager = FindObjectOfType<GameManager2>();
 
         gameManager.EndGame();
     }
 
     public void GetDamage(int damage)
     {
-        hp -= damage;
-        hpbar.SetHP(hp);
-        if(hp <= 0)
+        if (UnbeatTime >= 1)
+        {
+            hp -= damage;
+            hpbar.SetHP(hp);
+            EffectManager.PlayEffect(transform.position);
+            UnbeatTime = 0f;
+        }
+
+        if (hp <= 0)
         {
             Die();
         }
